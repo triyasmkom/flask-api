@@ -1,0 +1,29 @@
+###
+@url=http://localhost:5000
+
+### Home Url
+GET {{url}}
+
+### Get All Dosen
+GET {{url}}/dosen
+
+
+### Save Dosen
+POST {{url}}/dosen
+Content-Type: application/x-www-form-urlencoded
+
+nidn=DSN00005&nama=Azka&phone=1234545&alamat=Bantul
+
+### Get Detail Dosen
+GET {{url}}/dosen/1
+
+### 
+PUT {{url}}/dosen/1
+Content-Type: application/x-www-form-urlencoded
+
+nidn=DSN00001&nama=Bayu Saputro&phone=3333333&alamat=Bantul
+
+### 
+DELETE {{url}}/dosen/5
+
+

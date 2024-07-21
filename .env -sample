@@ -1,0 +1,7 @@
+FLASK_APP=server.py
+FLASK_ENV=development
+
+DB_HOST=hostname:port
+DB_DATABASE=database_name
+DB_USERNAME=username
+DB_PASSWORD=password
