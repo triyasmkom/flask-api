@@ -37,6 +37,10 @@ pip install flask-sqlalchemy
 
 # install driver mysql
 pip install pymysql
+
+pip install werkzeug
+
+pip install flask-jwt-extended
 ```
 
 ## Migrate DB

@@ -1,5 +1,5 @@
 from app import app
-from app.controller import DosenController
+from app.controller import DosenController, UserController
 from flask import request
 
 @app.route('/')
@@ -23,5 +23,11 @@ def dosenDetail(id):
     if request.method == 'DELETE':
         return DosenController.delete(id)
     
+@app.route('/create-admin',methods=['POST'])
+def createAdmin():
+    return UserController.createAdmin()
 
 
+@app.route('/login',methods=['POST'])
+def login():
+    return UserController.login()

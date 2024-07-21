@@ -12,7 +12,10 @@ GET {{url}}/dosen
 POST {{url}}/dosen
 Content-Type: application/x-www-form-urlencoded
 
-nidn=DSN00005&nama=Azka&phone=1234545&alamat=Bantul
+nidn=DSN00006
+&nama=Azka Nufail
+&phone=1234545
+&alamat=Bantul
 
 ### Get Detail Dosen
 GET {{url}}/dosen/1
@@ -26,4 +29,17 @@ nidn=DSN00001&nama=Bayu Saputro&phone=3333333&alamat=Bantul
 ### 
 DELETE {{url}}/dosen/5
 
+### Create Admin
+POST {{url}}/create-admin
+Content-Type: application/x-www-form-urlencoded
 
+name=admin
+&password=password
+&email=admin@gmail.com
+
+### Login
+POST {{url}}/login
+Content-Type: application/x-www-form-urlencoded
+
+&password=password
+&email=admin@gmail.com
