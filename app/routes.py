@@ -42,3 +42,8 @@ def login():
 def protected():
     current_user = get_jwt_identity()
     return response.success(current_user, 'success')
+
+@app.route("/file-upload", methods=['POST'])
+@jwt_required()
+def uploadFile():
+    return UserController.upload()

@@ -56,3 +56,19 @@ Content-Type: application/x-www-form-urlencoded
 ### Protected
 GET {{url}}/protected
 Authorization: Bearer {{authToken}}
+
+### Upload
+POST {{url}}/file-upload
+Authorization: Bearer {{authToken}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="judul"
+
+test
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="test.jpeg"
+Content-Type: image/jpeg
+
+< ./../test.jpeg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--

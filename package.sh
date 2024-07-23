@@ -1,6 +1,10 @@
-virtualenv env
-source env/bin/activate
-virtualenv -p python3 env
+# copy environment
+cp -r .env-sample .env
+
+# activate virtual env
+# virtualenv env
+# source env/bin/activate
+# virtualenv -p python3 env
 
 # install flask
 pip install flask

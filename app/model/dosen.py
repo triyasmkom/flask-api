@@ -8,4 +8,4 @@ class Dosen(db.Model):
     alamat = db.Column(db.String(108), nullable=False)
 
     def __repr__(self):
-        return '<Dosen {}>'.format(self.nama)
+        return '<Dosen {}>'.format(self.name)

@@ -1,8 +1,53 @@
 from app.model.user import User
-from app import response, app, db
+from app.model.gambar import Gambar
+from app import response, app, db, upload_config
 from flask_jwt_extended import *
 from flask import request
 from datetime import timedelta
+import os
+import uuid
+from werkzeug.utils import secure_filename
+
+def create_folder(folder_path):
+    try:
+        os.makedirs(folder_path, exist_ok=True)
+        print(f"Folder '{folder_path}' created successfully.")
+    except Exception as e:
+        print(f"Error creating folder '{folder_path}': {e}")
+
+
+def upload():
+    try:
+        judul = request.form.get('judul')
+        if 'file' not in request.files:
+            return response.badRequest([], 'File tidak tersedia 1')
+        
+        file = request.files['file']
+        if file.filename == '' :
+            return response.badRequest([], 'File tidak tersedia 2')
+        if file and upload_config.allowed_file(file.filename):
+            uid = uuid.uuid4()
+            filename = secure_filename(file.filename)
+            renameFile = "Flask-"+str(uid)+filename
+            pathName = os.path.join("./uploadFile", renameFile)
+            create_folder("./uploadFile")
+            file.save(pathName)
+
+            uploads = Gambar(judul=judul, pathname= renameFile)
+            db.session.add(uploads)
+            db.session.commit()
+
+            return response.success({
+                "judul": judul,
+                "pathname": renameFile
+            }, 'Success Upload File')
+        
+        else:
+            return response.badRequest([], "File tidak diizinkan")
+
+
+    except Exception as e:
+        print(e)
 
 def singleObject(data):
     return {
