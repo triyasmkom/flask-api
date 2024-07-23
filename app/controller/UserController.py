@@ -3,10 +3,6 @@ from app import response, app, db
 from flask_jwt_extended import *
 from flask import request
 from datetime import timedelta
-from config import Config
-
-app.config['JWT_SECRET_KEY'] = Config.JWT_SECRET
-jwt = JWTManager(app)
 
 def singleObject(data):
     return {

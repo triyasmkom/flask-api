@@ -1,12 +1,15 @@
-from app import app
+from app import app, response
 from app.controller import DosenController, UserController
 from flask import request
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
 
 @app.route('/')
 def index():
     return 'Hallo, API Flask'
 
 @app.route('/dosen', methods=["GET", "POST"])
+@jwt_required()
 def dosen():
     if request.method == 'GET':
         return DosenController.index()
@@ -15,6 +18,7 @@ def dosen():
         return DosenController.save()
 
 @app.route('/dosen/<id>',methods=['GET', 'PUT', 'DELETE'])
+@jwt_required()
 def dosenDetail(id):
     if request.method == 'GET':
         return DosenController.detail(id)
@@ -24,6 +28,7 @@ def dosenDetail(id):
         return DosenController.delete(id)
     
 @app.route('/create-admin',methods=['POST'])
+@jwt_required()
 def createAdmin():
     return UserController.createAdmin()
 
@@ -31,3 +36,9 @@ def createAdmin():
 @app.route('/login',methods=['POST'])
 def login():
     return UserController.login()
+
+@app.route('/protected', methods=["GET"])
+@jwt_required()
+def protected():
+    current_user = get_jwt_identity()
+    return response.success(current_user, 'success')

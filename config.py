@@ -11,7 +11,7 @@ class Config(object):
     PASSWORD = str(os.environ.get("DB_PASSWORD"))
 
 
-    JWT_SECRET = str(os.environ.get("JWT_SECRET"))
+    JWT_SECRET_KEY = str(os.environ.get("JWT_SECRET"))
 
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://'+USERNAME+':'+PASSWORD+'@'+HOST+":"+PORT+'/'+DATABASE
     SQLALCHEMY_TRACK_MODIFICATIONS = False

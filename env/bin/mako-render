@@ -1,4 +1,4 @@
-#!/home/triyas/project/py-react-js/env/bin/python3
+#!/home/msi/triyas/python/flask-api/env/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

@@ -1,15 +1,19 @@
 ###
 @url=http://localhost:5000
+@authToken = {{login.response.body.data.access_token}}
+
 
 ### Home Url
 GET {{url}}
 
 ### Get All Dosen
 GET {{url}}/dosen
+Authorization: Bearer {{authToken}}
 
 
 ### Save Dosen
 POST {{url}}/dosen
+Authorization: Bearer {{authToken}}
 Content-Type: application/x-www-form-urlencoded
 
 nidn=DSN00006
@@ -19,18 +23,22 @@ nidn=DSN00006
 
 ### Get Detail Dosen
 GET {{url}}/dosen/1
+Authorization: Bearer {{authToken}}
 
 ### 
 PUT {{url}}/dosen/1
+Authorization: Bearer {{authToken}}
 Content-Type: application/x-www-form-urlencoded
 
 nidn=DSN00001&nama=Bayu Saputro&phone=3333333&alamat=Bantul
 
 ### 
 DELETE {{url}}/dosen/5
+Authorization: Bearer {{authToken}}
 
 ### Create Admin
 POST {{url}}/create-admin
+Authorization: Bearer {{authToken}}
 Content-Type: application/x-www-form-urlencoded
 
 name=admin
@@ -38,8 +46,13 @@ name=admin
 &email=admin@gmail.com
 
 ### Login
+# @name login
 POST {{url}}/login
 Content-Type: application/x-www-form-urlencoded
 
 &password=password
 &email=admin@gmail.com
+
+### Protected
+GET {{url}}/protected
+Authorization: Bearer {{authToken}}
