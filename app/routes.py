@@ -47,3 +47,8 @@ def protected():
 @jwt_required()
 def uploadFile():
     return UserController.upload()
+
+@app.route("/api/dosen/page", methods=['GET'])
+@jwt_required()
+def paginate():
+    return DosenController.paginate()

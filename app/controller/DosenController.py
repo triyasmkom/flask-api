@@ -3,6 +3,7 @@ from app.model.mahasiswa import Mahasiswa
 from pymysql.err import IntegrityError
 from app import response, app, db
 from flask import request, jsonify
+import math
 
 def singleObject(data):
     return {
@@ -130,3 +131,80 @@ def delete(id):
     except Exception as e :
         print(e)
         return response.badRequest('', 'Error')
+
+
+    
+def get_pagination(clss, url, start, limit):
+    try:
+        # ambil data
+        results = clss.query.all()
+
+        # ubah format
+        data = formatArray(results)
+
+        # hitung
+        count = len(data)
+
+        obj = {}
+        if count < start:
+            obj['success'] = False
+            obj['message'] = "Page yang dipilih melewati batas total data!"
+            return obj
+        else:
+            obj['success'] = True
+            obj['start_page'] = start
+            obj['per_page'] = limit
+            obj['total_data'] = count
+            obj['total_page'] = math.ceil(count/limit)
+
+            # prev link
+            if start == 1:
+                obj['previous'] = ''
+            else:
+                
+                start_copy = max(1, start-limit)
+                limit_copy = start - 1
+                
+                obj['previous'] = url + '?start=%d&limit=%d' % (start_copy, limit_copy)
+            
+            # next link
+            if start + limit > count:
+                
+                obj["next"] = ""
+
+            else:
+                
+                start_copy = start+limit
+                obj['next'] = url + '?start=%d&limit=%d' % (start_copy, limit)
+            
+            obj['results'] = data[(start - 1): (start - 1 + limit)]
+
+            return obj
+
+
+    except Exception as e:
+        print(e)
+
+def paginate():
+    try:
+         # ambil parameter get
+        start = request.args.get('start')
+        limit = request.args.get('limit')
+
+        if start == None or limit == None:
+            return jsonify(get_pagination(
+                Dosen,
+                "http://127.0.0.1:5000/api/dosen/page",
+                start=request.args.get('start',1),
+                limit=request.args.get('limit',3)
+            ))
+        else:
+            return jsonify(get_pagination(
+                Dosen,
+                "http://127.0.0.1:5000/api/dosen/page",
+                start=int(start),
+                limit=int(limit)
+            ))
+
+    except Exception as e:
+        print(e)
